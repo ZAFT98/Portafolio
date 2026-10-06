@@ -66,5 +66,3 @@ for start in range(0, len(PROYECTOS), 3):
     for col, (icon, title, category, description) in zip(st.columns(3, gap="medium"), PROYECTOS[start:start + 3]):
         with col:
             st.markdown(f'<div class="card"><div class="icon">{html.escape(icon)}</div><div class="tag">{html.escape(category)}</div><h3>{html.escape(title)}</h3><p>{html.escape(description)}</p></div>', unsafe_allow_html=True)
-
-st.markdown('<p class="note">Los proyectos de la galería se muestran sin enlace individual cuando las capturas no permiten identificarlo con seguridad.</p>', unsafe_allow_html=True)
