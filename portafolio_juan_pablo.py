@@ -4,9 +4,6 @@ import streamlit as st
 
 st.set_page_config(page_title="Portafolio | Juan Pablo Betancur Ocampo", page_icon="🌿", layout="wide")
 
-# Enlaces recibidos: progavanza6 venía dos veces y se muestra una sola vez.
-# Los nombres descriptivos se basan en los archivos de despliegue de las capturas.
-# Las apps con app.py conservan un nombre neutro hasta conocer su contenido.
 APPS = [
     {"titulo": "Programación Avanzada 1", "url": "https://programaci-n-avanzada-1-9wbnsraddqgphdub58v8fp.streamlit.app/"},
     {"titulo": "Descenso de gradiente interactivo", "url": "https://progavanza2-zxmnjx2nt4m3m2eexscxtb.streamlit.app/"},
@@ -56,7 +53,6 @@ st.markdown("""<section class="hero"><div class="eyebrow">Programación Avanzada
 <p>Soy estudiante de Ingeniería en Desarrollo de Software. En este portafolio compartiré lo trabajado durante el semestre en la materia de Programación Avanzada, especialmente proyectos relacionados con modelos, inteligencia artificial y análisis de datos. Aquí encontrarás aplicaciones interactivas para explorar datos, hacer predicciones y comprender distintas técnicas de programación.</p></section>""", unsafe_allow_html=True)
 
 st.header("Aplicaciones publicadas")
-st.caption("Aplicaciones del semestre. Los nombres específicos se basan en los archivos mostrados en tus capturas.")
 for start in range(0, len(APPS), 3):
     for col, app in zip(st.columns(3, gap="medium"), APPS[start:start + 3]):
         with col:
@@ -66,7 +62,6 @@ for start in range(0, len(APPS), 3):
 
 st.divider()
 st.header("Proyectos realizados en clase")
-st.caption("Galería de trabajos vistos en clase; algunos también figuran entre las aplicaciones enlazadas arriba.")
 for start in range(0, len(PROYECTOS), 3):
     for col, (icon, title, category, description) in zip(st.columns(3, gap="medium"), PROYECTOS[start:start + 3]):
         with col:
