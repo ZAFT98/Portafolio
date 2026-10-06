@@ -14,7 +14,6 @@ APPS = [
     {"titulo": "Programación Avanzada 9", "url": "https://progavanza9-bxgmprhrxb7hpzmpqxm4ex.streamlit.app/"},
 ]
 
-# Proyectos que aparecen en la captura. No se asignan URL sin verificar correspondencia.
 PROYECTOS = [
     ("🍎", "¿Qué fruta es más parecida?", "Vectores y matrices", "Comparación de frutas según sus características."),
     ("🎯", "Descenso de gradiente interactivo", "Cálculo aplicado", "Exploración visual de la optimización de funciones."),
