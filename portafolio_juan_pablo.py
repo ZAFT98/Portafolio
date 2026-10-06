@@ -1,60 +1,75 @@
+"""Portafolio de Programación Avanzada. Ejecutar: streamlit run portafolio_juan_pablo.py"""
 import html
 import streamlit as st
 
-st.set_page_config(page_title="Portafolio | Juan Pablo Betancur Ocampo", page_icon="🚀", layout="wide")
+st.set_page_config(page_title="Portafolio | Juan Pablo Betancur Ocampo", page_icon="🌿", layout="wide")
 
-# Pega aquí las URL reales de tus apps de Streamlit. No se pueden extraer
-# automáticamente de la página de inicio de sesión de Community Cloud.
+# Enlaces recibidos: progavanza6 venía dos veces y se muestra una sola vez.
+# Los nombres descriptivos se basan en los archivos de despliegue de las capturas.
+# Las apps con app.py conservan un nombre neutro hasta conocer su contenido.
+APPS = [
+    {"titulo": "Programación Avanzada 1", "url": "https://programaci-n-avanzada-1-9wbnsraddqgphdub58v8fp.streamlit.app/"},
+    {"titulo": "Descenso de gradiente interactivo", "url": "https://progavanza2-zxmnjx2nt4m3m2eexscxtb.streamlit.app/"},
+    {"titulo": "Detector de anomalías", "url": "https://progavanza3-okwu5nh6wvd7egzg3dkrdn.streamlit.app/"},
+    {"titulo": "Series de tiempo: sensor IoT", "url": "https://progavanza5-pcxddqzxmkqseaksx46qwb.streamlit.app/"},
+    {"titulo": "Pronóstico CORNARE", "url": "https://progavanza6-2pykuiwwpkpvafu6iax3wz.streamlit.app/"},
+    {"titulo": "Programación Avanzada 7", "url": "https://progavanza7-2ipvgd7bbxfw6t5qebtmdz.streamlit.app/"},
+    {"titulo": "Programación Avanzada 9", "url": "https://progavanza9-bxgmprhrxb7hpzmpqxm4ex.streamlit.app/"},
+]
+
+# Proyectos que aparecen en la captura. No se asignan URL sin verificar correspondencia.
 PROYECTOS = [
-    {"titulo": "¿Qué fruta es más parecida?", "categoria": "Vectores y matrices", "descripcion": "Comparación de frutas a partir de sus características y similitudes.", "url": "", "icono": "🍎"},
-    {"titulo": "Descenso de gradiente interactivo", "categoria": "Cálculo aplicado", "descripcion": "Exploración visual de cómo se optimiza una función paso a paso.", "url": "", "icono": "🎯"},
-    {"titulo": "Detector de anomalías", "categoria": "Lógica y datos", "descripcion": "Identificación de valores que se salen del comportamiento habitual.", "url": "", "icono": "🚨"},
-    {"titulo": "Preparación de datos", "categoria": "Datos", "descripcion": "Limpieza y organización de datos para analizarlos después.", "url": "", "icono": "🧹"},
-    {"titulo": "Nivel de ríos y quebradas", "categoria": "Datos ambientales", "descripcion": "Consulta y visualización de mediciones de nivel de fuentes hídricas.", "url": "", "icono": "🌊"},
-    {"titulo": "Regresión: conceptos clave", "categoria": "Modelos predictivos", "descripcion": "Explicación interactiva de los conceptos básicos de regresión.", "url": "", "icono": "📈"},
-    {"titulo": "Serie de tiempo: sensor IoT", "categoria": "Series de tiempo", "descripcion": "Exploración de tendencias y cambios en datos de sensores.", "url": "", "icono": "📡"},
-    {"titulo": "Motor predictivo de calidad del aire", "categoria": "Proyecto aplicado", "descripcion": "Proyecto de análisis y predicción de la calidad del aire.", "url": "", "icono": "🌤️"},
+    ("🍎", "¿Qué fruta es más parecida?", "Vectores y matrices", "Comparación de frutas según sus características."),
+    ("🎯", "Descenso de gradiente interactivo", "Cálculo aplicado", "Exploración visual de la optimización de funciones."),
+    ("🔎", "Detector de anomalías", "Lógica y datos", "Identificación de valores fuera de lo habitual."),
+    ("🧹", "Preparación de datos", "Datos", "Limpieza y organización de datos para analizarlos."),
+    ("🌊", "Nivel de ríos y quebradas", "Datos ambientales", "Visualización de mediciones de fuentes hídricas."),
+    ("📈", "Regresión: conceptos clave", "Modelos", "Explicación interactiva de conceptos de regresión."),
+    ("📡", "Serie de tiempo: sensor IoT", "Series de tiempo", "Exploración de tendencias en datos de sensores."),
+    ("🌤️", "Motor predictivo de calidad del aire", "Proyecto aplicado", "Análisis y predicción de la calidad del aire."),
 ]
 
 st.markdown("""<style>
-.stApp {background: #090f20; color: #eaf0ff;}
-.block-container {max-width: 1250px; padding-top: 2.5rem;}
-h1,h2,h3,p {color: #eef3ff;}
-.hero {padding: 3rem; border: 1px solid #283958; border-radius: 22px; background: linear-gradient(120deg,#172c55,#10172c 68%); margin-bottom: 2rem;}
-.eyebrow {color:#76d7ff; font-size:.85rem; letter-spacing:.16em; font-weight:800; text-transform:uppercase;}
-.hero h1 {font-size:clamp(2.2rem,5vw,4rem);line-height:1.08;margin:.7rem 0 1rem;}
-.hero p {color:#d0dbec;font-size:1.12rem;line-height:1.7;max-width:850px;}
-.card {height: 245px; padding: 1.4rem; border:1px solid #293953; border-radius:18px; background:#111a2e; display:flex; flex-direction:column; margin-bottom:1rem;}
-.card .icon {font-size:2rem;}.card .category {font-size:.75rem;color:#76d7ff;text-transform:uppercase;letter-spacing:.12em;font-weight:800;margin-top:.5rem;}
-.card h3 {font-size:1.2rem;margin:.45rem 0;}.card p {font-size:.93rem;color:#bdc9dd;line-height:1.5;margin:0;}
-.card .action {margin-top:auto;color:#83cfff;font-weight:700;}.card a {color:#83cfff;text-decoration:none;}.card a:hover{text-decoration:underline;}
-.small-note {color:#aab9d2;font-size:.88rem;}
+:root {color-scheme:dark;}
+.stApp {background:#071b15;color:#edf8f0;}
+.block-container {max-width:1200px;padding-top:2.5rem;padding-bottom:4rem;}
+h1,h2,h3,p {color:#edf8f0;}
+[data-testid="stHeader"] {background:transparent;}
+.hero {background:linear-gradient(120deg,#164b36,#0a2b23 68%,#092119);border:1px solid #39755a;border-radius:22px;padding:clamp(1.5rem,4vw,3rem);margin-bottom:2rem;}
+.eyebrow {color:#a7efbd;font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;font-weight:800;}
+.hero h1 {font-size:clamp(2rem,4vw,3.5rem);line-height:1.1;margin:.7rem 0 1rem;}
+.hero p {color:#d7ecdc;font-size:1.05rem;line-height:1.7;max-width:900px;}
+.card {height:205px;padding:1.35rem;background:#102d24;border:1px solid #315d48;border-radius:18px;margin-bottom:1rem;display:flex;flex-direction:column;}
+.card:hover {border-color:#86d69e;background:#15392c;}
+.card .icon {font-size:1.8rem;}
+.card .tag {color:#9de5ae;font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;font-weight:800;margin:.5rem 0;}
+.card h3 {font-size:1.15rem;margin:.25rem 0 .5rem;}
+.card p {font-size:.9rem;line-height:1.45;color:#c6dacb;margin:0;}
+.card .action {margin-top:auto;font-weight:750;color:#9de5ae;}
+.card a {color:#9de5ae;text-decoration:none;}
+.card a:hover {text-decoration:underline;}
+.note {color:#c6dacb;font-size:.9rem;}
 </style>""", unsafe_allow_html=True)
 
-st.markdown("""<section class="hero"><div class="eyebrow">Programación avanzada · Portafolio académico</div>
-<h1>Hola, soy Juan Pablo Betancur Ocampo 👋</h1>
-<p>Soy estudiante de Ingeniería en Desarrollo de Software. En este portafolio compartiré lo trabajado durante el semestre en la materia de Programación Avanzada, especialmente proyectos relacionados con modelos, inteligencia artificial y análisis de datos. Aquí encontrarás aplicaciones interactivas para explorar datos, hacer predicciones y entender cómo funcionan distintos métodos de programación.</p></section>""", unsafe_allow_html=True)
+st.markdown("""<section class="hero"><div class="eyebrow">Programación Avanzada · Portafolio académico</div>
+<h1>Hola, soy Juan Pablo Betancur Ocampo 🌿</h1>
+<p>Soy estudiante de Ingeniería en Desarrollo de Software. En este portafolio compartiré lo trabajado durante el semestre en la materia de Programación Avanzada, especialmente proyectos relacionados con modelos, inteligencia artificial y análisis de datos. Aquí encontrarás aplicaciones interactivas para explorar datos, hacer predicciones y comprender distintas técnicas de programación.</p></section>""", unsafe_allow_html=True)
 
-st.header("Proyectos realizados en clase")
-st.caption("Aplicaciones y ejercicios desarrollados durante el semestre")
-
-filtro = st.selectbox("Filtrar por tema", ["Todos"] + sorted({p["categoria"] for p in PROYECTOS}))
-visibles = [p for p in PROYECTOS if filtro == "Todos" or p["categoria"] == filtro]
-
-for inicio in range(0, len(visibles), 3):
-    columnas = st.columns(3, gap="medium")
-    for col, proyecto in zip(columnas, visibles[inicio:inicio + 3]):
+st.header("Aplicaciones publicadas")
+st.caption("Aplicaciones del semestre. Los nombres específicos se basan en los archivos mostrados en tus capturas.")
+for start in range(0, len(APPS), 3):
+    for col, app in zip(st.columns(3, gap="medium"), APPS[start:start + 3]):
         with col:
-            titulo = html.escape(proyecto["titulo"])
-            categoria = html.escape(proyecto["categoria"])
-            descripcion = html.escape(proyecto["descripcion"])
-            icono = html.escape(proyecto["icono"])
-            url = proyecto["url"].strip()
-            if url.startswith("https://") or url.startswith("http://"):
-                accion = f'<a href="{html.escape(url, quote=True)}" target="_blank" rel="noopener noreferrer">Abrir proyecto ↗</a>'
-            else:
-                accion = "Enlace pendiente de añadir"
-            st.markdown(f'<div class="card"><div class="icon">{icono}</div><div class="category">{categoria}</div><h3>{titulo}</h3><p>{descripcion}</p><div class="action">{accion}</div></div>', unsafe_allow_html=True)
+            title = html.escape(app["titulo"])
+            url = html.escape(app["url"], quote=True)
+            st.markdown(f'<div class="card"><div class="icon">🌱</div><div class="tag">Aplicación interactiva</div><h3>{title}</h3><p>Explora esta aplicación del portafolio.</p><div class="action"><a href="{url}" target="_blank" rel="noopener noreferrer">Abrir aplicación ↗</a></div></div>', unsafe_allow_html=True)
 
 st.divider()
-st.markdown('<p class="small-note">Portafolio en construcción · Para activar una tarjeta, pega la URL pública de la app en el campo «url» del proyecto correspondiente dentro de PROYECTOS.</p>', unsafe_allow_html=True)
+st.header("Proyectos realizados en clase")
+st.caption("Galería de trabajos vistos en clase; algunos también figuran entre las aplicaciones enlazadas arriba.")
+for start in range(0, len(PROYECTOS), 3):
+    for col, (icon, title, category, description) in zip(st.columns(3, gap="medium"), PROYECTOS[start:start + 3]):
+        with col:
+            st.markdown(f'<div class="card"><div class="icon">{html.escape(icon)}</div><div class="tag">{html.escape(category)}</div><h3>{html.escape(title)}</h3><p>{html.escape(description)}</p></div>', unsafe_allow_html=True)
+
+st.markdown('<p class="note">Los proyectos de la galería se muestran sin enlace individual cuando las capturas no permiten identificarlo con seguridad.</p>', unsafe_allow_html=True)
